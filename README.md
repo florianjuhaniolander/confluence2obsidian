@@ -125,7 +125,13 @@ pytest
 
 ## 5. Create an Atlassian API token
 
-Open your Atlassian account security settings and create an API token.
+Open the official Atlassian API-token page:
+
+**[Create and manage Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens)**
+
+Atlassian's instructions are also available here:
+
+**[Atlassian Support: Manage API tokens for your Atlassian account](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)**
 
 For this version, use a regular API token rather than a scoped token.
 
@@ -137,7 +143,7 @@ Confluence2Obsidian
 
 Copy the token when Atlassian shows it.
 
-Treat the token like a password. Do not put it in this repository, in the README, or in a GitHub commit.
+Treat the token like a password. Do not put it in this repository, in the README, or commit it to version control.
 
 ## 6. Find your Confluence base URL
 
@@ -562,177 +568,6 @@ Duplicate page titles are exported safely, but title-only Confluence links can s
 The tool is read-only with respect to Confluence, but it does write and update generated files inside the chosen Obsidian vault.
 
 If you manually edit a generated note, a later sync may overwrite those local changes if the corresponding Confluence page has changed. Keep local-only notes separate from Confluence-managed notes when possible.
-
----
-
-# Putting the project on GitHub
-
-The following steps are for people who have not used Git or GitHub before.
-
-## 1. Make sure no credentials are inside the project
-
-Do not store an API token in the repository.
-
-Check the files Git will see before uploading anything:
-
-```bash
-git status
-```
-
-The project `.gitignore` excludes common local files such as `.venv/`, Python caches, and `.env`.
-
-If credentials were stored using the recommended `~/.config/confluence2obsidian/credentials.sh` path, they are outside the repository and will not be uploaded.
-
-## 2. Install Git
-
-Check whether Git is installed:
-
-```bash
-git --version
-```
-
-On Ubuntu, install it with:
-
-```bash
-sudo apt update
-sudo apt install git
-```
-
-## 3. Configure your Git identity
-
-Run once on your computer:
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-```
-
-Check the values:
-
-```bash
-git config --global user.name
-git config --global user.email
-```
-
-## 4. Initialize the repository
-
-Inside the project folder:
-
-```bash
-cd /path/to/confluence2obsidian-v0.3
-git init
-git branch -M main
-```
-
-Check what Git sees:
-
-```bash
-git status
-```
-
-## 5. Create the first commit
-
-Add the project files:
-
-```bash
-git add .
-```
-
-Check them one more time:
-
-```bash
-git status
-```
-
-Create the first commit:
-
-```bash
-git commit -m "Initial release"
-```
-
-## 6. Install GitHub CLI
-
-Check whether it is installed:
-
-```bash
-gh --version
-```
-
-On Ubuntu, it may be available through:
-
-```bash
-sudo apt update
-sudo apt install gh
-```
-
-## 7. Log in to GitHub
-
-Run:
-
-```bash
-gh auth login
-```
-
-Choose GitHub.com, HTTPS, and browser login when prompted.
-
-Verify the login:
-
-```bash
-gh auth status
-```
-
-## 8. Create and upload a public GitHub repository
-
-From inside the project folder:
-
-```bash
-gh repo create confluence2obsidian \
-  --public \
-  --source=. \
-  --remote=origin \
-  --push
-```
-
-To create a private repository instead, replace `--public` with `--private`.
-
-## 9. Open the repository in your browser
-
-Run:
-
-```bash
-gh repo view --web
-```
-
-## 10. Upload future changes
-
-After editing the project:
-
-```bash
-git status
-git add .
-git commit -m "Describe the change"
-git push
-```
-
-The basic workflow is:
-
-```text
-edit files
-    ↓
-git add .
-    ↓
-git commit
-    ↓
-git push
-    ↓
-GitHub is updated
-```
-
-## Security warning
-
-Never upload an Atlassian API token to GitHub.
-
-If a real API token is accidentally committed or pushed, revoke it in Atlassian immediately and create a new token. Deleting it from only the newest version of a file is not enough because Git preserves older commits.
 
 ---
 
