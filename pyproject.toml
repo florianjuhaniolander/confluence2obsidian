@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "confluence2obsidian"
+version = "0.3.0"
+description = "Read-only Confluence Cloud to Obsidian Markdown exporter/sync tool"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Florian Juhani Olander"}]
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "httpx>=0.27",
+  "markdownify>=0.13",
+  "PyYAML>=6.0",
+  "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+confluence2obsidian = "confluence2obsidian.cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
